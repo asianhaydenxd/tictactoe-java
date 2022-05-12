@@ -106,9 +106,45 @@ class TicTacToeReader {
 }
 
 public class App {
+    static TicTacToeReader reader = new TicTacToeReader();
+    static Game game = new Game();
+    static Piece turn = Piece.X;
+
+    static Coord getCoord() throws Exception {
+        for (int attempts = 0; attempts < 10; attempts++) {
+            try {
+                System.out.println("Input coords");
+                return reader.readCoords();
+            } catch (Exception e) {
+                System.out.println("Invalid coords");                
+            }
+        }
+
+        throw new Exception("Too many attempts");
+    }
+
+    static Piece oppositePiece(Piece piece) {
+        return piece == Piece.O ? Piece.X : Piece.O;
+    }
+
     public static void main(String[] args) throws Exception {
-        Game game = new Game();
-        game.setSlot(0, 1, Piece.X);
+        while (game.getWinner() == null) {
+            System.out.println(game.readBoard());
+            game.setSlot(getCoord(), turn);
+            turn = oppositePiece(turn);
+        }
+
         System.out.println(game.readBoard());
+
+        switch (game.getWinner()) {
+            case X:
+                System.out.println("X Wins!");
+                break;
+            case O:
+                System.out.println("O Wins!");
+                break;
+        }
+
+        reader.close();
     }
 }
