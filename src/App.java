@@ -1,32 +1,50 @@
 import java.util.Arrays;
 
 enum Piece {
-    X, O, EMPTY
+    X, O
+}
+
+class Slot {
+    Piece piece;
+
+    public Slot(Piece newPiece) {
+        piece = newPiece;
+    }
 }
 
 class Game {
-    Piece[][] board = {
-        {Piece.EMPTY, Piece.EMPTY, Piece.EMPTY},
-        {Piece.EMPTY, Piece.EMPTY, Piece.EMPTY},
-        {Piece.EMPTY, Piece.EMPTY, Piece.EMPTY},
-    };
+    Slot[] board = new Slot[9];
+
+    public Game() {
+        for (int i = 0; i < 9; i++) {
+            this.board[i] = new Slot(null);
+        }
+    }
+
+    Slot getSlot(int row, int col) {
+        return this.board[row*3+col];
+    }
+
+    void setSlot(int row, int col, Piece piece) {
+        this.board[row*3+col].piece = piece;
+    }
 
     Piece getWinner() {
-        if (this.board[0][0] == this.board[1][1] && this.board[0][0] == this.board[2][2]) {
-            return this.board[0][0];
+        if (this.getSlot(0, 0) == this.getSlot(1, 1) && this.getSlot(1, 1) == this.getSlot(2, 2)) {
+            return this.getSlot(0, 0).piece;
         }
-        if (this.board[0][2] == this.board[1][1] && this.board[0][2] == this.board[2][0]) {
-            return this.board[0][2];
+        if (this.getSlot(0, 2) == this.getSlot(1, 1) && this.getSlot(1, 1) == this.getSlot(2, 0)) {
+            return this.getSlot(0, 2).piece;
         }
         for (int i = 0; i < 3; i++) {
-            if (this.board[i][0] == this.board[i][1] && this.board[i][0] == this.board[i][2]) {
-                return this.board[i][0];
+            if (this.getSlot(i, 0) == this.getSlot(i, 1) && this.getSlot(i, 1) == this.getSlot(i, 2)) {
+                return this.getSlot(i, 0).piece;
             }
-            if (this.board[0][i] == this.board[1][i] && this.board[0][i] == this.board[2][i]) {
-                return this.board[0][i];
+            if (this.getSlot(0, i) == this.getSlot(1, i) && this.getSlot(1, i) == this.getSlot(2, i)) {
+                return this.getSlot(0, i).piece;
             }
         }
-        return Piece.EMPTY;
+        return null;
     }
 }
 
