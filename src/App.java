@@ -8,6 +8,12 @@ class Slot {
     public Slot(Piece newPiece) {
         piece = newPiece;
     }
+
+    String read() {
+        if (this.piece == Piece.X) return "X";
+        if (this.piece == Piece.O) return "O";
+        return " ";
+    }
 }
 
 class Game {
@@ -50,12 +56,8 @@ class Game {
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                Slot slot = this.getSlot(row, col);
-                if (slot.piece == null)    acc += "[ ]";
-                if (slot.piece == Piece.X) acc += "[X]";
-                if (slot.piece == Piece.O) acc += "[O]";
+                acc += "[" + this.getSlot(row, col).read() + "]";
             }
-            
             acc += "\n";
         }
 
@@ -66,7 +68,7 @@ class Game {
 public class App {
     public static void main(String[] args) throws Exception {
         Game game = new Game();
-        
+        game.setSlot(0, 1, Piece.X);
         System.out.println(game.readBoard());
     }
 }
