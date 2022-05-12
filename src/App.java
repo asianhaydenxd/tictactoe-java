@@ -69,9 +69,15 @@ class Coord {
     int row;
     int col;
 
-    public Coord(int row, int col) {
+    public Coord(int row, int col) throws Exception {
+        if (!(0 <= row && row <= 2 && 0 <= col && col <= 2)) throw new Exception("Coordinates are out of range");
+
         this.row = row;
         this.col = col;
+    }
+
+    int getIndex() {
+        return this.row * 3 + this.col;
     }
 
     String asString() {
@@ -87,10 +93,7 @@ class TicTacToeReader {
         int rowCoord = Character.getNumericValue(text.charAt(0));
         int colCoord = Character.getNumericValue(text.charAt(2));
 
-        if (!(text.length() == 3
-                && text.charAt(1) == ' '
-                && 0 <= rowCoord && rowCoord <= 2
-                && 0 <= colCoord && colCoord <= 2)) throw new Exception("Input coord string is invalid");
+        if (!(text.length() == 3 && text.charAt(1) == ' ')) throw new Exception("Input coord string is invalid");
                 
         return new Coord(rowCoord, colCoord);
     }
