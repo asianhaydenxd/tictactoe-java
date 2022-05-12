@@ -114,7 +114,9 @@ public class App {
         for (int attempts = 0; attempts < 10; attempts++) {
             try {
                 System.out.println("Input coords");
-                return reader.readCoords();
+                Coord coord = reader.readCoords();
+                if (game.getSlot(coord).piece != null) throw new Exception("Slot is already filled");
+                return coord;
             } catch (Exception e) {
                 System.out.println("Invalid coords");                
             }
