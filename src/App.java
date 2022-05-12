@@ -65,6 +65,41 @@ class Game {
     }
 }
 
+class Coord {
+    int row;
+    int col;
+
+    public Coord(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+
+    String asString() {
+        return "(" + Integer.toString(this.row) + ", " + Integer.toString(this.col) + ")";
+    }
+}
+
+class TicTacToeReader {
+    Scanner scanner = new Scanner(System.in);
+
+    Coord readCoords() throws Exception {
+        String text = scanner.nextLine();
+        int rowCoord = Character.getNumericValue(text.charAt(0));
+        int colCoord = Character.getNumericValue(text.charAt(2));
+
+        if (!(text.length() == 3
+                && text.charAt(1) == ' '
+                && 0 <= rowCoord && rowCoord <= 2
+                && 0 <= colCoord && colCoord <= 2)) throw new Exception("Input coord string is invalid");
+                
+        return new Coord(rowCoord, colCoord);
+    }
+
+    void close() {
+        this.scanner.close();
+    }
+}
+
 public class App {
     public static void main(String[] args) throws Exception {
         Game game = new Game();
