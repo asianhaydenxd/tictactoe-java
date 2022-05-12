@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 enum Piece {
     X, O
 }
@@ -46,12 +44,29 @@ class Game {
         }
         return null;
     }
+
+    String readBoard() {
+        String acc = "";
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                Slot slot = this.getSlot(row, col);
+                if (slot.piece == null)    acc += "[ ]";
+                if (slot.piece == Piece.X) acc += "[X]";
+                if (slot.piece == Piece.O) acc += "[O]";
+            }
+            
+            acc += "\n";
+        }
+
+        return acc;
+    }
 }
 
 public class App {
     public static void main(String[] args) throws Exception {
         Game game = new Game();
         
-        System.out.println(Arrays.deepToString(game.board));
+        System.out.println(game.readBoard());
     }
 }
