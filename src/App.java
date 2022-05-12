@@ -36,17 +36,17 @@ class Game {
     }
 
     Piece getWinner() throws Exception {
-        if (this.getSlot(new Coord(0, 0)) == this.getSlot(new Coord(1, 1)) && this.getSlot(new Coord(1, 1)) == this.getSlot(new Coord(2, 2))) {
+        if (this.getSlot(new Coord(0, 0)).piece == this.getSlot(new Coord(1, 1)).piece && this.getSlot(new Coord(1, 1)).piece == this.getSlot(new Coord(2, 2)).piece) {
             return this.getSlot(new Coord(0, 0)).piece;
         }
-        if (this.getSlot(new Coord(0, 2)) == this.getSlot(new Coord(1, 1)) && this.getSlot(new Coord(1, 1)) == this.getSlot(new Coord(2, 0))) {
+        if (this.getSlot(new Coord(0, 2)).piece == this.getSlot(new Coord(1, 1)).piece && this.getSlot(new Coord(1, 1)).piece == this.getSlot(new Coord(2, 0)).piece) {
             return this.getSlot(new Coord(0, 2)).piece;
         }
         for (int i = 0; i < 3; i++) {
-            if (this.getSlot(new Coord(i, 0)) == this.getSlot(new Coord(i, 1)) && this.getSlot(new Coord(i, 1)) == this.getSlot(new Coord(i, 2))) {
+            if (this.getSlot(new Coord(i, 0)).piece == this.getSlot(new Coord(i, 1)).piece && this.getSlot(new Coord(i, 1)).piece == this.getSlot(new Coord(i, 2)).piece) {
                 return this.getSlot(new Coord(i, 0)).piece;
             }
-            if (this.getSlot(new Coord(0, i)) == this.getSlot(new Coord(1, i)) && this.getSlot(new Coord(1, i)) == this.getSlot(new Coord(2, i))) {
+            if (this.getSlot(new Coord(0, i)).piece == this.getSlot(new Coord(1, i)).piece && this.getSlot(new Coord(1, i)).piece == this.getSlot(new Coord(2, i)).piece) {
                 return this.getSlot(new Coord(0, i)).piece;
             }
         }
