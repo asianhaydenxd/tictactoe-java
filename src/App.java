@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 enum Piece {
     X, O
 }
@@ -25,38 +27,38 @@ class Game {
         }
     }
 
-    Slot getSlot(int row, int col) {
-        return this.board[row*3+col];
+    Slot getSlot(Coord coord) {
+        return this.board[coord.getIndex()];
     }
 
-    void setSlot(int row, int col, Piece piece) {
-        this.board[row*3+col].piece = piece;
+    void setSlot(Coord coord, Piece piece) {
+        this.board[coord.getIndex()].piece = piece;
     }
 
-    Piece getWinner() {
-        if (this.getSlot(0, 0) == this.getSlot(1, 1) && this.getSlot(1, 1) == this.getSlot(2, 2)) {
-            return this.getSlot(0, 0).piece;
+    Piece getWinner() throws Exception {
+        if (this.getSlot(new Coord(0, 0)) == this.getSlot(new Coord(1, 1)) && this.getSlot(new Coord(1, 1)) == this.getSlot(new Coord(2, 2))) {
+            return this.getSlot(new Coord(0, 0)).piece;
         }
-        if (this.getSlot(0, 2) == this.getSlot(1, 1) && this.getSlot(1, 1) == this.getSlot(2, 0)) {
-            return this.getSlot(0, 2).piece;
+        if (this.getSlot(new Coord(0, 2)) == this.getSlot(new Coord(1, 1)) && this.getSlot(new Coord(1, 1)) == this.getSlot(new Coord(2, 0))) {
+            return this.getSlot(new Coord(0, 2)).piece;
         }
         for (int i = 0; i < 3; i++) {
-            if (this.getSlot(i, 0) == this.getSlot(i, 1) && this.getSlot(i, 1) == this.getSlot(i, 2)) {
-                return this.getSlot(i, 0).piece;
+            if (this.getSlot(new Coord(i, 0)) == this.getSlot(new Coord(i, 1)) && this.getSlot(new Coord(i, 1)) == this.getSlot(new Coord(i, 2))) {
+                return this.getSlot(new Coord(i, 0)).piece;
             }
-            if (this.getSlot(0, i) == this.getSlot(1, i) && this.getSlot(1, i) == this.getSlot(2, i)) {
-                return this.getSlot(0, i).piece;
+            if (this.getSlot(new Coord(0, i)) == this.getSlot(new Coord(1, i)) && this.getSlot(new Coord(1, i)) == this.getSlot(new Coord(2, i))) {
+                return this.getSlot(new Coord(0, i)).piece;
             }
         }
         return null;
     }
 
-    String readBoard() {
+    String readBoard() throws Exception {
         String acc = "";
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                acc += "[" + this.getSlot(row, col).read() + "]";
+                acc += "[" + this.getSlot(new Coord(row, col)).read() + "]";
             }
             acc += "\n";
         }
